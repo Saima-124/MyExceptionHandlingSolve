@@ -1,24 +1,26 @@
 import java.io.*;
+
+
 public class HelloWorld {
     public static void main(String[] args) {
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter("hello.txt"))){
-            writer.write("Hello,World");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        StringBuilder content = new StringBuilder();
-        try(BufferedReader reader = new BufferedReader(new FileReader("hello.txt"))){
-            String line;
-            if((line = reader.readLine())!=null){
-                content.append(line).append("\n");
-            }
+        //  String fileName = "hello.txt";
+        //  String message = "Hello, World!";
 
+        // Step 1: Write "Hello, World!" to the file
+        try (FileWriter writer = new FileWriter("hello.txt")) {
+            writer.write("Hello, World!");
+            //System.out.println(message);
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(content.toString().trim());
+            System.err.println("Error writing to the file: " + e.getMessage());
+
         }
 
+        // Step 2: Read the message from the file
+        try (BufferedReader reader = new BufferedReader(new FileReader("hello.txt"))) {
+            String fileContent = reader.readLine();
+            System.out.println( fileContent);
+        } catch (IOException e) {
+            System.err.println("Error reading from the file: " + e.getMessage());
+        }
     }
-
-
+}
